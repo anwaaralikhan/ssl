@@ -1,53 +1,41 @@
 keytool is a key and certificate management utility that we will use to create our private keys and certificates. Keytool comes with the standard JDK Distribution. The following example of JConsole SSL connection uses the keyool library from JDK 8.
 
 Step 1: Generate key pair on Server or the Host machine (JMX Agent – Server).
-Current Directory (Server): B:\JMX\Security
+Current Directory (Server): C:\Certificates\SSL
 
-B:\JMX\Security>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 180 -storepass serverpass -keypass serverpass
+C:\Certificates\SSL>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 180 -storepass serverpass -keypass serverpass
 What is your first and last name?
-  [Unknown]:  JMX Agent
+  [Unknown]:  bootapp
 What is the name of your organizational unit?
-  [Unknown]:  DevOps
+  [Unknown]:  development
 What is the name of your organization?
-  [Unknown]:  CleanTutorials
+  [Unknown]:  sandbox
 What is the name of your City or Locality?
-  [Unknown]:  Delhi
+  [Unknown]:  mars
 What is the name of your State or Province?
-  [Unknown]:  Delhi
+  [Unknown]:  mars
 What is the two-letter country code for this unit?
-  [Unknown]:  IN
-Is CN=JMX Agent, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN correct?
+  [Unknown]:  mars
+Is CN=bootapp, OU=development, O=sandbox, L=mars, ST=mars, C=mars correct?
   [no]:  yes
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-B:\JMX\Security>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 180 -storepass serverpass -keypass serverpass
+
+  
+C:\Certificates\SSL>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 180 -storepass serverpass -keypass serverpass
 What is your first and last name?
-  [Unknown]:  JMX Agent
+  [Unknown]:  bootapp
 What is the name of your organizational unit?
-  [Unknown]:  DevOps
+  [Unknown]:  development
 What is the name of your organization?
-  [Unknown]:  CleanTutorials
+  [Unknown]:  sandbox
 What is the name of your City or Locality?
-  [Unknown]:  Delhi
+  [Unknown]:  mars
 What is the name of your State or Province?
-  [Unknown]:  Delhi
+  [Unknown]:  mars
 What is the two-letter country code for this unit?
-  [Unknown]:  IN
-Is CN=JMX Agent, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN correct?
+  [Unknown]:  mars
+Is CN=bootapp, OU=development, O=sandbox, L=mars, ST=mars, C=mars correct?
   [no]:  yes
+  
 Since we are creating a self-signed certificate,  after entering the command the tool will ask us about the details of the certificate such as the first and last name. You can fill out random information for development purpose. After filling the information, it will create a “serverkeystore” file in the current directory.
 
 The command line options and their functions are explained below.
@@ -67,11 +55,11 @@ storepass: The master password of the keystore.
 keypass: The password of a particular key. Different keys can have different passwords. But there can only be a single storepass.
 
 Step 2: Generate the Certificate from the Server’s KeyStore.
-B:\JMX\Security>keytool -exportcert -keystore serverkeystore -alias serverkey -storepass serverpass -file server.cer
+C:\Certificates\SSL>keytool -exportcert -keystore serverkeystore -alias serverkey -storepass serverpass -file server.cer
 Certificate stored in file <server.cer>
-1
-2
-B:\JMX\Security>keytool -exportcert -keystore serverkeystore -alias serverkey -storepass serverpass -file server.cer
+
+
+C:\Certificates\SSL>keytool -exportcert -keystore serverkeystore -alias serverkey -storepass serverpass -file server.cer
 Certificate stored in file <server.cer>
 The above command will export the public key from the private key that we created in step 1. The public key will be exported as a certificate named “server.cer”.
 
@@ -135,9 +123,9 @@ Certificate stored in file <client.cer>
 B:\JMX Client\Security>keytool -exportcert -keystore clientkeystore -alias clientkey -storepass clientpass -file client.cer
 Certificate stored in file <client.cer>
 Step 5: Copy the client certificate to the Server machine and import it in Server’s TrusStore.
-Copy the certificate generated on the client machine in Step 4 to the Server machine. For instance, I have copied the client certificate in the following directory: B:\JMX\Security on the server machine.
+Copy the certificate generated on the client machine in Step 4 to the Server machine. For instance, I have copied the client certificate in the following directory: C:\Certificates\SSL on the server machine.
 
-B:\JMX\Security>keytool -importcert -file client.cer -keystore servertruststore -storepass servertrustpass
+C:\Certificates\SSL>keytool -importcert -file client.cer -keystore servertruststore -storepass servertrustpass
 Owner: CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
 Issuer: CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
 Serial number: 427e283a
@@ -185,7 +173,7 @@ Certificate was added to keystore
 22
 23
 24
-B:\JMX\Security>keytool -importcert -file client.cer -keystore servertruststore -storepass servertrustpass
+C:\Certificates\SSL>keytool -importcert -file client.cer -keystore servertruststore -storepass servertrustpass
 Owner: CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
 Issuer: CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
 Serial number: 427e283a
@@ -339,9 +327,9 @@ Using the password authentication files from the previous tutorial and the SSL k
 -Dcom.sun.management.jmxremote.ssl=true
 -Dcom.sun.management.jmxremote.ssl.need.client.auth=true
 -Dcom.sun.management.jmxremote.registry.ssl=true
--Djavax.net.ssl.keyStore="B:\JMX\Security\serverkeystore"
+-Djavax.net.ssl.keyStore="C:\Certificates\SSL\serverkeystore"
 -Djavax.net.ssl.keyStorePassword=serverpass
--Djavax.net.ssl.trustStore="B:\JMX\Security\servertruststore"
+-Djavax.net.ssl.trustStore="C:\Certificates\SSL\servertruststore"
 -Djavax.net.ssl.trustStorePassword=servertrustpass
 1
 2
@@ -363,9 +351,9 @@ Using the password authentication files from the previous tutorial and the SSL k
 -Dcom.sun.management.jmxremote.ssl=true
 -Dcom.sun.management.jmxremote.ssl.need.client.auth=true
 -Dcom.sun.management.jmxremote.registry.ssl=true
--Djavax.net.ssl.keyStore="B:\JMX\Security\serverkeystore"
+-Djavax.net.ssl.keyStore="C:\Certificates\SSL\serverkeystore"
 -Djavax.net.ssl.keyStorePassword=serverpass
--Djavax.net.ssl.trustStore="B:\JMX\Security\servertruststore"
+-Djavax.net.ssl.trustStore="C:\Certificates\SSL\servertruststore"
 -Djavax.net.ssl.trustStorePassword=servertrustpass
 Step 8: Start JConsole.
 To Start the JConsole application.
@@ -401,3 +389,6 @@ jconsole -J-Djavax.net.ssl.keyStore="B:\JMX Client\Security\clientkeystore"
 -J-Djavax.net.ssl.keyStorePassword=clientpass
 -J-Djavax.net.ssl.trustStore="B:\JMX Client\Security\clienttruststore"
 -J-Djavax.net.ssl.trustStorePassword=clienttrustpass
+
+
+http://www.cleantutorials.com/jconsole/jconsole-ssl-with-password-authentication
