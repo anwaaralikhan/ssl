@@ -3,6 +3,7 @@ keytool is a key and certificate management utility that we will use to create o
 Step 1: Generate key pair on Server or the Host machine (JMX Agent – Server).
 Current Directory (Server): C:\Certificates\SSL
 
+```
 C:\Certificates\SSL>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 180 -storepass serverpass -keypass serverpass
 What is your first and last name?
   [Unknown]:  bootapp
@@ -18,8 +19,9 @@ What is the two-letter country code for this unit?
   [Unknown]:  mars
 Is CN=bootapp, OU=development, O=sandbox, L=mars, ST=mars, C=mars correct?
   [no]:  yes
-
+```
   
+```
 C:\Certificates\SSL>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 180 -storepass serverpass -keypass serverpass
 What is your first and last name?
   [Unknown]:  bootapp
@@ -35,7 +37,8 @@ What is the two-letter country code for this unit?
   [Unknown]:  mars
 Is CN=bootapp, OU=development, O=sandbox, L=mars, ST=mars, C=mars correct?
   [no]:  yes
-  
+ ```
+ 
 Since we are creating a self-signed certificate,  after entering the command the tool will ask us about the details of the certificate such as the first and last name. You can fill out random information for development purpose. After filling the information, it will create a “serverkeystore” file in the current directory.
 
 The command line options and their functions are explained below.
