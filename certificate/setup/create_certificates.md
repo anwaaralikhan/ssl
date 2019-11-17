@@ -2,12 +2,12 @@
 
 **keytool** is a key and certificate management utility that we will use to create our private keys and certificates. Keytool comes with the standard JDK Distribution. The following example of JConsole SSL connection uses the keyool library from JDK 8.
 
-#### Generate Private Key Pair with its Public Key (Certificate)
+#### Generate Private Key Pair with its Public Key (We will generate Certificate out of it)
 Step 1: Generate key pair on `Server` or the `Host machine`.
 Current Directory (Server): `C:\Certificates\SSL`
 
 ```
-C:\Certificates\SSL>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 180 -storepass serverpass -keypass serverpass
+C:\Certificates\SSL\Server>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 180 -storepass serverpass -keypass serverpass
 What is your first and last name?
   [Unknown]:  bootapp
 What is the name of your organizational unit?
@@ -40,22 +40,26 @@ The command line options and their functions are explained below.
 **keypass**: The password of a particular key. Different keys can have different passwords. But there can only be a single storepass.
 
 #### Step 2: Generate the Certificate from the Server’s KeyStore.
-C:\Certificates\SSL>keytool -exportcert -keystore serverkeystore -alias serverkey -storepass serverpass -file server.cer
+
+```
+C:\Certificates\SSL\Server>keytool -exportcert -keystore serverkeystore -alias serverkey -storepass serverpass -file server.cer
 Certificate stored in file <server.cer>
 
-
-C:\Certificates\SSL>keytool -exportcert -keystore serverkeystore -alias serverkey -storepass serverpass -file server.cer
+C:\Certificates\SSL\Server>keytool -exportcert -keystore serverkeystore -alias serverkey -storepass serverpass -file server.cer
 Certificate stored in file <server.cer>
-The above command will export the public key from the private key that we created in step 1. The public key will be exported as a certificate named “server.cer”.
+```
 
-exportcert: Exports the public key corresponding to the key name (alias) from the keystore passed in the command. For JDK 5 and lower versions use export instead of exportcert.
+The above command will export the public key from the private key that we created in step 1. The public key will be exported as a certificate named **server.cer**.
 
-file: Export destination and the format of the export file. For instance, we could have imported “.crt” format instead of “.cer” format.
+**exportcert**: Exports the public key corresponding to the key name (alias) from the keystore passed in the command. For JDK 5 and lower versions use export instead of exportcert.
 
-Step 3: Generate key pair on Client or the Remote machine (JConsole – Client).
-Current Directory (Client): B:\JMX Client\Security
+**file**: Export destination and the format of the export file. For instance, we could have imported “.crt” format instead of “.cer” format.
 
-B:\JMX Client\Security>keytool -genkeypair -keystore clientkeystore -alias clientkey -validity 180 -storepass clientpass -keypass clientpass
+#### Step 3: Generate key pair on Client or the Remote machine (JConsole – Client).
+Current Directory (Client): C:\Certificates\SSL\Client\
+
+```
+C:\Certificates\SSL\Client>keytool -genkeypair -keystore clientkeystore -alias clientkey -validity 180 -storepass clientpass -keypass clientpass
 What is your first and last name?
  [Unknown]: JConsole
 What is the name of your organizational unit?
@@ -70,22 +74,8 @@ What is the two-letter country code for this unit?
  [Unknown]: IN
 Is CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN correct?
  [no]: yes
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-B:\JMX Client\Security>keytool -genkeypair -keystore clientkeystore -alias clientkey -validity 180 -storepass clientpass -keypass clientpass
+
+C:\Certificates\SSL\Client>keytool -genkeypair -keystore clientkeystore -alias clientkey -validity 180 -storepass clientpass -keypass clientpass
 What is your first and last name?
  [Unknown]: JConsole
 What is the name of your organizational unit?
