@@ -2,7 +2,7 @@
 
 **keytool** is a key and certificate management utility that we will use to create our private keys and certificates. Keytool comes with the standard JDK Distribution. The following example of JConsole SSL connection uses the keyool library from JDK 8.
 
-#### Self Signed Ceritificate
+#### Generate Private Key Pair with its Public Key (Certificate)
 Step 1: Generate key pair on `Server` or the `Host machine`.
 Current Directory (Server): `C:\Certificates\SSL`
 
@@ -23,44 +23,23 @@ What is the two-letter country code for this unit?
 Is CN=bootapp, OU=development, O=sandbox, L=mars, ST=mars, C=mars correct?
   [no]:  yes
 ```
-  
-```
-C:\Certificates\SSL>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 180 -storepass serverpass -keypass serverpass
-What is your first and last name?
-  [Unknown]:  bootapp
-What is the name of your organizational unit?
-  [Unknown]:  development
-What is the name of your organization?
-  [Unknown]:  sandbox
-What is the name of your City or Locality?
-  [Unknown]:  chicago
-What is the name of your State or Province?
-  [Unknown]:  illinois
-What is the two-letter country code for this unit?
-  [Unknown]:  il
-Is CN=bootapp, OU=development, O=sandbox, L=mars, ST=mars, C=mars correct?
-  [no]:  yes
- ```
- 
-Since we are creating a self-signed certificate,  after entering the command the tool will ask us about the details of the certificate such as the first and last name. You can fill out random information for development purpose. After filling the information, it will create a “serverkeystore” file in the current directory.
+Since we are creating a **self-signed certificate**,  after entering the command the tool will ask us about the details of the certificate such as the first and last name. You can fill out random information for development purpose. After filling the information, it will create a “serverkeystore” file in the current directory.
 
 The command line options and their functions are explained below.
 
+**genkeypair**: Generates a private key pair along with its public key (certificate). If you are using Java JDK 5 or lower versions, use genkey instead of genkeypair.
 
- 
-genkeypair: Generates a private key pair along with its public key (certificate). If you are using Java JDK 5 or lower versions, use genkey instead of genkeypair.
+**keystore**: Name of the keystore. A keystore can have multiple keys but for our example, we will only create a single key entry.
 
-keystore: Name of the keystore. A keystore can have multiple keys but for our example, we will only create a single key entry.
+**alias**: The unique case sensitive name of the key entry. Within a keystore, we can only have a single key with the same alias name.
 
-alias: The unique case sensitive name of the key entry. Within a keystore, we can only have a single key with the same alias name.
+**validity**: The validity of the certificate. The default validity is 90 days.
 
-validity: The validity of the certificate. The default validity is 90 days.
+**storepass**: The master password of the keystore.
 
-storepass: The master password of the keystore.
+**keypass**: The password of a particular key. Different keys can have different passwords. But there can only be a single storepass.
 
-keypass: The password of a particular key. Different keys can have different passwords. But there can only be a single storepass.
-
-Step 2: Generate the Certificate from the Server’s KeyStore.
+#### Step 2: Generate the Certificate from the Server’s KeyStore.
 C:\Certificates\SSL>keytool -exportcert -keystore serverkeystore -alias serverkey -storepass serverpass -file server.cer
 Certificate stored in file <server.cer>
 
