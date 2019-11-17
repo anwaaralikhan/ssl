@@ -1,7 +1,10 @@
-keytool is a key and certificate management utility that we will use to create our private keys and certificates. Keytool comes with the standard JDK Distribution. The following example of JConsole SSL connection uses the keyool library from JDK 8.
+## Setup SSL via Keytool and JDK
 
-Step 1: Generate key pair on Server or the Host machine (JMX Agent – Server).
-Current Directory (Server): C:\Certificates\SSL
+**keytool** is a key and certificate management utility that we will use to create our private keys and certificates. Keytool comes with the standard JDK Distribution. The following example of JConsole SSL connection uses the keyool library from JDK 8.
+
+#### Self Signed Ceritificate
+Step 1: Generate key pair on `Server` or the `Host machine`.
+Current Directory (Server): `C:\Certificates\SSL`
 
 ```
 C:\Certificates\SSL>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 180 -storepass serverpass -keypass serverpass
@@ -12,11 +15,11 @@ What is the name of your organizational unit?
 What is the name of your organization?
   [Unknown]:  sandbox
 What is the name of your City or Locality?
-  [Unknown]:  mars
+  [Unknown]:  chicago
 What is the name of your State or Province?
-  [Unknown]:  mars
+  [Unknown]:  illinois
 What is the two-letter country code for this unit?
-  [Unknown]:  mars
+  [Unknown]:  il
 Is CN=bootapp, OU=development, O=sandbox, L=mars, ST=mars, C=mars correct?
   [no]:  yes
 ```
@@ -30,11 +33,11 @@ What is the name of your organizational unit?
 What is the name of your organization?
   [Unknown]:  sandbox
 What is the name of your City or Locality?
-  [Unknown]:  mars
+  [Unknown]:  chicago
 What is the name of your State or Province?
-  [Unknown]:  mars
+  [Unknown]:  illinois
 What is the two-letter country code for this unit?
-  [Unknown]:  mars
+  [Unknown]:  il
 Is CN=bootapp, OU=development, O=sandbox, L=mars, ST=mars, C=mars correct?
   [no]:  yes
  ```
