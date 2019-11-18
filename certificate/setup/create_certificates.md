@@ -1,8 +1,8 @@
-## Setup SSL via Keytool and JDK
+# Setup SSL Certificate
 
 **keytool** is a key and certificate management utility that we will use to create our private keys and certificates. Keytool comes with the standard JDK Distribution. The following example of JConsole SSL connection uses the keyool library from JDK 8.
 
-#### Generate Private Key Pair with its Public Key (We will generate Certificate out of it)
+## Generate Private Key Pair with its Public Key (We will generate Certificate out of it)
 Step 1: Generate key pair on `Server` or the `Host machine`.
 Current Directory (Server): `C:\Certificates\SSL`
 
@@ -44,9 +44,6 @@ The command line options and their functions are explained below.
 ```
 C:\Certificates\SSL\Server>keytool -exportcert -keystore serverkeystore -alias serverkey -storepass serverpass -file server.cer
 Certificate stored in file <server.cer>
-
-C:\Certificates\SSL\Server>keytool -exportcert -keystore serverkeystore -alias serverkey -storepass serverpass -file server.cer
-Certificate stored in file <server.cer>
 ```
 
 The above command will export the public key from the private key that we created in step 1. The public key will be exported as a certificate named **server.cer**.
@@ -55,7 +52,7 @@ The above command will export the public key from the private key that we create
 
 **file**: Export destination and the format of the export file. For instance, we could have imported “.crt” format instead of “.cer” format.
 
-#### Step 3: Generate key pair on Client or the Remote machine (JConsole – Client).
+## Step 3: Generate key pair on Client or the Remote machine (JConsole – Client).
 Current Directory (Client): C:\Certificates\SSL\Client\
 
 ```
@@ -74,23 +71,9 @@ What is the two-letter country code for this unit?
  [Unknown]: IN
 Is CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN correct?
  [no]: yes
+```
 
-C:\Certificates\SSL\Client>keytool -genkeypair -keystore clientkeystore -alias clientkey -validity 180 -storepass clientpass -keypass clientpass
-What is your first and last name?
- [Unknown]: JConsole
-What is the name of your organizational unit?
- [Unknown]: DevOps
-What is the name of your organization?
- [Unknown]: CleanTutorials
-What is the name of your City or Locality?
- [Unknown]: Delhi
-What is the name of your State or Province?
- [Unknown]: Delhi
-What is the two-letter country code for this unit?
- [Unknown]: IN
-Is CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN correct?
- [no]: yes
-Step 4: Generate the Certificate from the Client’s Keystore.
+## Step 4: Generate the Certificate from the Client’s Keystore.
 B:\JMX Client\Security>keytool -exportcert -keystore clientkeystore -alias clientkey -storepass clientpass -file client.cer
 Certificate stored in file <client.cer>
 1
