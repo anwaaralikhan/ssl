@@ -124,30 +124,7 @@ KeyIdentifier [
 
 Trust this certificate? [no]:  yes
 Certificate was added to keystore
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
+
 C:\Certificates\SSL>keytool -importcert -file client.cer -keystore servertruststore -storepass servertrustpass
 Owner: CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
 Issuer: CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
@@ -201,30 +178,7 @@ KeyIdentifier [
 
 Trust this certificate? [no]:  yes
 Certificate was added to keystore
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
+
 B:\JMX Client\Security>keytool -importcert -file server.cer -keystore clienttruststore -storepass clienttrustpass
 Owner: CN=JMX Agent, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
 Issuer: CN=JMX Agent, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
@@ -268,18 +222,7 @@ java <OPTIONS> class
 -Djavax.net.ssl.keyStorePassword=<storepass of KeyStore(server)>
 -Djavax.net.ssl.trustStore=<Server-TrustStore-Path>
 -Djavax.net.ssl.trustStorePassword=<storepass of TrustStore(server)>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
+
 -Dcom.sun.management.jmxremote.password.file=<Password-file>
 -Dcom.sun.management.jmxremote.access.file=<Access-file> 
 -Djava.rmi.server.hostname=<host-ip>
@@ -306,18 +249,7 @@ Using the password authentication files from the previous tutorial and the SSL k
 -Djavax.net.ssl.keyStorePassword=serverpass
 -Djavax.net.ssl.trustStore="C:\Certificates\SSL\servertruststore"
 -Djavax.net.ssl.trustStorePassword=servertrustpass
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
+
 -Dcom.sun.management.jmxremote.password.file=B:\JMX\jmxremote.password
 -Dcom.sun.management.jmxremote.access.file=B:\JMX\jmxremote.access 
 -Djava.rmi.server.hostname=192.168.1.4
