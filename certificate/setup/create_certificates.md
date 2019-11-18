@@ -2,7 +2,7 @@
 
 **keytool** is a key and certificate management utility that we will use to create our private keys and certificates. Keytool comes with the standard JDK Distribution. The following example of JConsole SSL connection uses the keyool library from JDK 8.
 
-## Generate Private Key Pair with its Public Key (We will generate Certificate out of it)
+## Generate Private Key Pair with its Public Key
 Step 1: Generate key pair on `Server` or the `Host machine`.
 Current Directory (Server): `C:\Certificates\SSL`
 
@@ -74,15 +74,16 @@ Is CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN correct?
 ```
 
 ## Step 4: Generate the Certificate from the Client’s Keystore.
+
+```
 B:\JMX Client\Security>keytool -exportcert -keystore clientkeystore -alias clientkey -storepass clientpass -file client.cer
 Certificate stored in file <client.cer>
-1
-2
-B:\JMX Client\Security>keytool -exportcert -keystore clientkeystore -alias clientkey -storepass clientpass -file client.cer
-Certificate stored in file <client.cer>
-Step 5: Copy the client certificate to the Server machine and import it in Server’s TrusStore.
+```
+
+## Step 5: Copy the client certificate to the Server machine and import it in Server’s TrusStore.
 Copy the certificate generated on the client machine in Step 4 to the Server machine. For instance, I have copied the client certificate in the following directory: C:\Certificates\SSL on the server machine.
 
+```
 C:\Certificates\SSL>keytool -importcert -file client.cer -keystore servertruststore -storepass servertrustpass
 Owner: CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
 Issuer: CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
@@ -107,34 +108,11 @@ KeyIdentifier [
 
 Trust this certificate? [no]:  yes
 Certificate was added to keystore
+```
 
-C:\Certificates\SSL>keytool -importcert -file client.cer -keystore servertruststore -storepass servertrustpass
-Owner: CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
-Issuer: CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
-Serial number: 427e283a
-Valid from: Tue Sep 05 05:58:57 IST 2017 until: Sun Mar 04 05:58:57 IST 2018
-Certificate fingerprints:
-         MD5:  F0:D9:B2:55:F8:8C:00:88:E5:2D:2C:DD:89:55:79:38
-         SHA1: 8D:3E:10:A0:E8:AE:F8:0D:89:CE:6D:2F:78:9B:A6:79:B1:5E:94:F4
-         SHA256: 4A:1B:DB:C6:4D:45:46:A1:C5:4E:4F:FD:2C:40:5B:AF:4B:8B:69:47:63:FF:D0:2F:20:06:FB:A0:70:7E:51:E3
-         Signature algorithm name: SHA1withDSA
-         Version: 3
- 
-Extensions:
- 
-#1: ObjectId: 2.5.29.14 Criticality=false
-SubjectKeyIdentifier [
-KeyIdentifier [
-0000: 0F 54 27 49 A3 FD B0 FB   EE F9 C4 23 97 3A A1 66  .T'I.......#.:.f
-0010: 8B 1B 96 0B                                        ....
-]
-]
- 
-Trust this certificate? [no]:  yes
-Certificate was added to keystore
 importcert: It will import the “.cer” file mentioned in the file option to the servertruststore. If you are using JDK 5 or lower versions use import instead of importcert.
 
-Step 6: Copy the server certificate to the Client machine and import it in Client’s TrusStore.
+## Step 6: Copy the server certificate to the Client machine and import it in Client’s TrusStore.
 Copy the certificate generated on the server machine in Step 2 to the Client machine. For instance, I have copied the server certificate in the following directory: B:\JMX Client\Security on the client machine.
 
 B:\JMX Client\Security>keytool -importcert -file server.cer -keystore clienttruststore -storepass clienttrustpass
@@ -162,33 +140,10 @@ KeyIdentifier [
 Trust this certificate? [no]:  yes
 Certificate was added to keystore
 
-B:\JMX Client\Security>keytool -importcert -file server.cer -keystore clienttruststore -storepass clienttrustpass
-Owner: CN=JMX Agent, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
-Issuer: CN=JMX Agent, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
-Serial number: 2eef3295
-Valid from: Tue Sep 05 05:24:54 IST 2017 until: Sun Mar 04 05:24:54 IST 2018
-Certificate fingerprints:
-         MD5:  AF:B2:FC:3D:CF:B0:CB:74:27:80:C3:2B:93:FD:54:EE
-         SHA1: 1B:54:E7:CB:9E:A4:FD:E3:80:91:7B:BA:15:7F:96:BE:42:B8:1D:DE
-         SHA256: C7:38:37:FD:56:7F:DB:5F:79:72:22:5C:38:30:10:5B:BC:A3:E3:62:FC:BA:E3:4C:F0:0D:2C:D8:DD:8E:D2:17
-         Signature algorithm name: SHA1withDSA
-         Version: 3
- 
-Extensions:
- 
-#1: ObjectId: 2.5.29.14 Criticality=false
-SubjectKeyIdentifier [
-KeyIdentifier [
-0000: 53 DE 89 0D EA CC 08 FA   AE 36 4F A1 E1 C3 59 3F  S........6O...Y?
-0010: 7E 68 76 4F                                        .hvO
-]
-]
- 
-Trust this certificate? [no]:  yes
-Certificate was added to keystore
-Step 7: Start the Java application. 
+## Step 7: Start the Java application. 
 Add the following options when starting your java application.
 
+```
 java <OPTIONS> class 
 
 <OPTIONS>
@@ -205,19 +160,8 @@ java <OPTIONS> class
 -Djavax.net.ssl.keyStorePassword=<storepass of KeyStore(server)>
 -Djavax.net.ssl.trustStore=<Server-TrustStore-Path>
 -Djavax.net.ssl.trustStorePassword=<storepass of TrustStore(server)>
+```
 
--Dcom.sun.management.jmxremote.password.file=<Password-file>
--Dcom.sun.management.jmxremote.access.file=<Access-file> 
--Djava.rmi.server.hostname=<host-ip>
--Dcom.sun.management.jmxremote.port=<rmi-port>
--Dcom.sun.management.jmxremote.authenticate=true
--Dcom.sun.management.jmxremote.ssl=true
--Dcom.sun.management.jmxremote.ssl.need.client.auth=true
--Dcom.sun.management.jmxremote.registry.ssl=true
--Djavax.net.ssl.keyStore=<Server-KeyStore-Path>
--Djavax.net.ssl.keyStorePassword=<storepass of KeyStore(server)>
--Djavax.net.ssl.trustStore=<Server-TrustStore-Path>
--Djavax.net.ssl.trustStorePassword=<storepass of TrustStore(server)>
 Using the password authentication files from the previous tutorial and the SSL keystore and truststore files from this tutorial, we will run our Java application using the following options.
 
 -Dcom.sun.management.jmxremote.password.file=B:\JMX\jmxremote.password
@@ -257,28 +201,12 @@ Enter
 -J-Djavax.net.ssl.keyStorePassword=<storepass of KeyStore(Client)>
 -J-Djavax.net.ssl.trustStore=<Client-TrustStore-Path>
 -J-Djavax.net.ssl.trustStorePassword=<storepass of TrustStore(Client)>
-1
-2
-3
-4
--J-Djavax.net.ssl.keyStore=<Client-KeyStore-Path>
--J-Djavax.net.ssl.keyStorePassword=<storepass of KeyStore(Client)>
--J-Djavax.net.ssl.trustStore=<Client-TrustStore-Path>
--J-Djavax.net.ssl.trustStorePassword=<storepass of TrustStore(Client)>
+
 For instance, for the client keystore and truststore that we created in this tutorial. We will use the following command to start Jconsole.
 
-jconsole -J-Djavax.net.ssl.keyStore="B:\JMX Client\Security\clientkeystore"
--J-Djavax.net.ssl.keyStorePassword=clientpass
--J-Djavax.net.ssl.trustStore="B:\JMX Client\Security\clienttruststore"
--J-Djavax.net.ssl.trustStorePassword=clienttrustpass
-1
-2
-3
-4
-jconsole -J-Djavax.net.ssl.keyStore="B:\JMX Client\Security\clientkeystore"
--J-Djavax.net.ssl.keyStorePassword=clientpass
--J-Djavax.net.ssl.trustStore="B:\JMX Client\Security\clienttruststore"
--J-Djavax.net.ssl.trustStorePassword=clienttrustpass
+```
+jconsole -J-Djavax.net.ssl.keyStore="B:\JMX Client\Security\clientkeystore" -J-Djavax.net.ssl.keyStorePassword=clientpass -J-Djavax.net.ssl.trustStore="B:\JMX Client\Security\clienttruststore" -J-Djavax.net.ssl.trustStorePassword=clienttrustpass
+```
 
 
 http://www.cleantutorials.com/jconsole/jconsole-ssl-with-password-authentication
