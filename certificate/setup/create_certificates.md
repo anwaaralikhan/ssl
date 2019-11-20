@@ -3,6 +3,7 @@
 **keytool** is a key and certificate management utility that we will use to create our private keys and certificates. Keytool comes with the standard JDK Distribution. 
 
 **Server** : Spring Boot application
+
 **Client** : JConsole/Visual VM/etc (Profiler for the application)
 
 The following example of JConsole SSL connection uses the keyool library from JDK 8.
