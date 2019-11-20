@@ -6,14 +6,22 @@
 
 **Client** : JConsole/Visual VM/etc (Profiler for the application)
 
-The following example of JConsole SSL connection uses the keyool library from JDK 8.
 
-## Generate Private Key Pair with its Public Key
+
+## Generate Private Key
+
 Step 1: Generate key pair on `Server` or the `Host machine`.
 Current Directory (Server): `C:\Certificates\SSL`
 
+keytool -genkey -alias <desired certificate alias> 
+    -keystore <path to keystore.pfx>
+    -storetype PKCS12 
+    -keyalg RSA 
+    -storepass <password> 
+    -validity 730 
+    -keysize 2048 
 ```
-C:\Certificates\SSL\Server>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 180 -storepass serverpass -keypass serverpass
+C:\Certificates\SSL\Server>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 360 -storepass serverpass -keypass serverpass -keyalg RSA -storetype PKCS12 -keysize 2048 
 What is your first and last name?
   [Unknown]:  bootapp
 What is the name of your organizational unit?
@@ -28,6 +36,8 @@ What is the two-letter country code for this unit?
   [Unknown]:  il
 Is CN=bootapp, OU=development, O=sandbox, L=mars, ST=mars, C=mars correct?
   [no]:  yes
+  
+Output : **serverkeystore** file will be created.
 ```
 Since we are creating a **self-signed certificate**,  after entering the command the tool will ask us about the details of the certificate such as the first and last name. You can fill out random information for development purpose. After filling the information, it will create a “serverkeystore” file in the current directory.
 
