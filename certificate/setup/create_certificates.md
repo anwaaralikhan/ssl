@@ -36,7 +36,7 @@ Output : `serverkeystore` file will be created.
 
 Since we are creating a **self-signed certificate**,  after entering the command the tool will ask us about the details of the certificate such as the first and last name. You can fill out random information for development purpose. After filling the information, it will create a “serverkeystore” file in the current directory.
 
-**========================================================**
+
 The command line options and their functions are explained below.
 
 **genkeypair**: Generates a private key pair along with its public key (certificate). If you are using Java JDK 5 or lower versions, use genkey instead of genkeypair.
@@ -51,8 +51,8 @@ The command line options and their functions are explained below.
 
 **keypass**: The password of a particular key. Different keys can have different passwords. But there can only be a single storepass.
 
-#### Step 2: Generate the Certificate from the Server’s KeyStore.
 
+#### Step 2: Generate the Certificate from the Server’s KeyStore.
 ```
 C:\Certificates\SSL\Server>keytool -exportcert -keystore serverkeystore -alias serverkey -storepass serverpass -file server.cer
 Certificate stored in file <server.cer>
