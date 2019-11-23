@@ -1,16 +1,16 @@
 # Setup SSL Certificate
 
 **Server** : Spring Boot application
+
 **Client** : JConsole/Visual VM/etc (Profiler for the application)
+
 **SSL Tool** : `keytool` is a key and certificate management utility that we will use to create our private keys and certificates. Keytool comes with the standard JDK Distribution. 
 
+Current Directory (Server): `C:\Certificates\SSL`
 
 
-## Generate Private Key
 
 #### Step 1: Generate key pair on `Server` or the `Host machine`.
-
-Current Directory (Server): `C:\Certificates\SSL`
 ```
 C:\Certificates\SSL\Server>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 360 -storepass serverpass -keypass serverpass -keyalg RSA -storetype PKCS12 -keysize 2048 
 What is your first and last name?
@@ -84,15 +84,15 @@ Is CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN correct?
 #### Step 4: Generate the Certificate from the Client’s Keystore.
 
 ```
-B:\JMX Client\Security>keytool -exportcert -keystore clientkeystore -alias clientkey -storepass clientpass -file client.cer
+C:\Certificates\SSL\Client>keytool -exportcert -keystore clientkeystore -alias clientkey -storepass clientpass -file client.cer
 Certificate stored in file <client.cer>
 ```
 
 #### Step 5: Copy the client certificate to the Server machine and import it in Server’s TrusStore.
-Copy the certificate generated on the client machine in Step 4 to the Server machine. For instance, I have copied the client certificate in the following directory: C:\Certificates\SSL on the server machine.
+Copy the certificate generated on the client machine in Step 4 to the Server machine. For instance, I have copied the client certificate in the following directory: C:\Certificates\SSL\Client on the server machine.
 
 ```
-C:\Certificates\SSL>keytool -importcert -file client.cer -keystore servertruststore -storepass servertrustpass
+C:\Certificates\SSL\Client>keytool -importcert -file client.cer -keystore servertruststore -storepass servertrustpass
 Owner: CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
 Issuer: CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
 Serial number: 427e283a
@@ -121,9 +121,9 @@ Certificate was added to keystore
 importcert: It will import the “.cer” file mentioned in the file option to the servertruststore. If you are using JDK 5 or lower versions use import instead of importcert.
 
 #### Step 6: Copy the server certificate to the Client machine and import it in Client’s TrusStore.
-Copy the certificate generated on the server machine in Step 2 to the Client machine. For instance, I have copied the server certificate in the following directory: B:\JMX Client\Security on the client machine.
+Copy the certificate generated on the server machine in Step 2 to the Client machine. For instance, I have copied the server certificate in the following directory: C:\Certificates\SSL\Client on the client machine.
 
-B:\JMX Client\Security>keytool -importcert -file server.cer -keystore clienttruststore -storepass clienttrustpass
+C:\Certificates\SSL\Client>keytool -importcert -file server.cer -keystore clienttruststore -storepass clienttrustpass
 Owner: CN=JMX Agent, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
 Issuer: CN=JMX Agent, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
 Serial number: 2eef3295
@@ -148,7 +148,7 @@ KeyIdentifier [
 Trust this certificate? [no]:  yes
 Certificate was added to keystore
 
-## Step 7: Start the Java application. 
+#### Step 7: Start the Java application. 
 Add the following options when starting your java application.
 
 ```
@@ -213,7 +213,7 @@ Enter
 For instance, for the client keystore and truststore that we created in this tutorial. We will use the following command to start Jconsole.
 
 ```
-jconsole -J-Djavax.net.ssl.keyStore="B:\JMX Client\Security\clientkeystore" -J-Djavax.net.ssl.keyStorePassword=clientpass -J-Djavax.net.ssl.trustStore="B:\JMX Client\Security\clienttruststore" -J-Djavax.net.ssl.trustStorePassword=clienttrustpass
+jconsole -J-Djavax.net.ssl.keyStore="C:\Certificates\SSL\Client\clientkeystore" -J-Djavax.net.ssl.keyStorePassword=clientpass -J-Djavax.net.ssl.trustStore="C:\Certificates\SSL\Client\clienttruststore" -J-Djavax.net.ssl.trustStorePassword=clienttrustpass
 ```
 
 
