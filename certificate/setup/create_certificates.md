@@ -1,19 +1,16 @@
 # Setup SSL Certificate
 
-**keytool** is a key and certificate management utility that we will use to create our private keys and certificates. Keytool comes with the standard JDK Distribution. 
-
 **Server** : Spring Boot application
-
 **Client** : JConsole/Visual VM/etc (Profiler for the application)
+**SSL Tool** : `keytool` is a key and certificate management utility that we will use to create our private keys and certificates. Keytool comes with the standard JDK Distribution. 
 
 
 
 ## Generate Private Key
 
-Step 1: Generate key pair on `Server` or the `Host machine`.
+#### Step 1: Generate key pair on `Server` or the `Host machine`.
 
 Current Directory (Server): `C:\Certificates\SSL`
-
 ```
 C:\Certificates\SSL\Server>keytool -genkeypair -keystore serverkeystore -alias serverkey -validity 360 -storepass serverpass -keypass serverpass -keyalg RSA -storetype PKCS12 -keysize 2048 
 What is your first and last name?
@@ -30,7 +27,6 @@ What is the two-letter country code for this unit?
   [Unknown]:  il
 Is CN=bootapp, OU=development, O=sandbox, L=mars, ST=mars, C=mars correct?
   [no]:  yes
-  
 ```
 Output : `serverkeystore` file will be created.
 
@@ -64,7 +60,7 @@ The above command will export the public key from the private key that we create
 
 **file**: Export destination and the format of the export file. For instance, we could have imported “.crt” format instead of “.cer” format.
 
-## Step 3: Generate key pair on Client or the Remote machine (JConsole – Client).
+#### Step 3: Generate key pair on Client or the Remote machine (JConsole – Client).
 Current Directory (Client): C:\Certificates\SSL\Client\
 
 ```
@@ -85,14 +81,14 @@ Is CN=JConsole, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN correct?
  [no]: yes
 ```
 
-## Step 4: Generate the Certificate from the Client’s Keystore.
+#### Step 4: Generate the Certificate from the Client’s Keystore.
 
 ```
 B:\JMX Client\Security>keytool -exportcert -keystore clientkeystore -alias clientkey -storepass clientpass -file client.cer
 Certificate stored in file <client.cer>
 ```
 
-## Step 5: Copy the client certificate to the Server machine and import it in Server’s TrusStore.
+#### Step 5: Copy the client certificate to the Server machine and import it in Server’s TrusStore.
 Copy the certificate generated on the client machine in Step 4 to the Server machine. For instance, I have copied the client certificate in the following directory: C:\Certificates\SSL on the server machine.
 
 ```
@@ -124,7 +120,7 @@ Certificate was added to keystore
 
 importcert: It will import the “.cer” file mentioned in the file option to the servertruststore. If you are using JDK 5 or lower versions use import instead of importcert.
 
-## Step 6: Copy the server certificate to the Client machine and import it in Client’s TrusStore.
+#### Step 6: Copy the server certificate to the Client machine and import it in Client’s TrusStore.
 Copy the certificate generated on the server machine in Step 2 to the Client machine. For instance, I have copied the server certificate in the following directory: B:\JMX Client\Security on the client machine.
 
 B:\JMX Client\Security>keytool -importcert -file server.cer -keystore clienttruststore -storepass clienttrustpass
