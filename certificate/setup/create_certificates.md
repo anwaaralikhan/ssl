@@ -118,11 +118,11 @@ Trust this certificate? [no]:  yes
 Certificate was added to keystore
 ```
 
-importcert: It will import the “.cer” file mentioned in the file option to the servertruststore. If you are using JDK 5 or lower versions use import instead of importcert.
+> importcert: It will import the “.cer” file mentioned in the file option to the servertruststore. If you are using JDK 5 or lower versions use import instead of importcert.
 
 #### Step 6: Copy the server certificate to the Client machine and import it in Client’s TrusStore.
 Copy the certificate generated on the server machine in Step 2 to the Client machine. For instance, I have copied the server certificate in the following directory: C:\Certificates\SSL\Client on the client machine.
-
+`
 C:\Certificates\SSL\Client>keytool -importcert -file server.cer -keystore clienttruststore -storepass clienttrustpass
 Owner: CN=JMX Agent, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
 Issuer: CN=JMX Agent, OU=DevOps, O=CleanTutorials, L=Delhi, ST=Delhi, C=IN
@@ -147,7 +147,7 @@ KeyIdentifier [
 
 Trust this certificate? [no]:  yes
 Certificate was added to keystore
-
+`
 #### Step 7: Start the Java application. 
 Add the following options when starting your java application.
 
